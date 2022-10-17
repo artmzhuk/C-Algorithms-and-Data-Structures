@@ -3,7 +3,7 @@
 
 int main(int argc, char **argv)
 {
-    if (argc < 1) // поменять на 3
+    if (argc !=4) 
     {
         printf ("Usage: frame <height> <width> <text>\n");
         return 0;
