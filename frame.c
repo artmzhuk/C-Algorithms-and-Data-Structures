@@ -3,11 +3,11 @@
 
 int main(int argc, char **argv)
 {
-    /*if (argc < 1) // поменять на 3
+    if (argc < 1) // поменять на 3
     {
         printf ("Usage: frame <height> <width> <text>\n");
         return 0;
-    }*/
+    }
     int h = atoi(argv[1]);
     int w = atoi(argv[2]);
     size_t len = strlen(argv[3]);
