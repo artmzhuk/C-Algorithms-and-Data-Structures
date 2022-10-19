@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+
 
 int main(int argc, char **argv)
 {
@@ -12,16 +14,11 @@ int main(int argc, char **argv)
     int w = atoi(argv[2]);
     size_t len = strlen(argv[3]);
     int condY = h/2;
-    int condX = (w - 2- len)/2 ;
+    int k = 1;
     
     if (h % 2 == 0)
     {
         condY -= 1; 
-    }
-
-    if (len % 2 == 1)
-    {
-        condX +=1;
     }
 
     if(len > w -2 || h < 3)
@@ -46,11 +43,13 @@ int main(int argc, char **argv)
             for (int j = 0; j < (w - 2- len) /2; j++)
             {
                 printf(" ");
+                k++;
             }
             printf("%s", argv[3]);
-            for (int j = 0; j < condX; j++)
+            while (k <= w - 2 - len)
             {
                 printf(" ");
+                k++;
             }
             printf("*\n");
         }
