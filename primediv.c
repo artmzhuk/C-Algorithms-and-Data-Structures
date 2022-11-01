@@ -1,19 +1,19 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 
 int main(int argc, char **argv)
 {
     long long n;
     printf("input: ");
     scanf("%lld", &n);
-    long long a[n];
+    n = llabs(n);
+    char *a = malloc(n);
 
     for (long long i = 0; i <= n; i++)
     {
         a[i] = 1;
     }
-
-
     
     printf ("test1\n");
     for (long long i = 2; i*i <= n; i++)
