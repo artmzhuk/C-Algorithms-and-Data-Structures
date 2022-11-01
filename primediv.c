@@ -1,41 +1,59 @@
 #include <stdio.h>
+#include <math.h>
 
 int main(int argc, char **argv)
 {
-    long long x;
-    long long i = 2;
-    long long k = 2;
-    long long res;
-    printf("input: \n");
-    scanf("%lld", &x);
-    long long arr[x];
-    while (i <= x) // записывает в массив arr числа, индекс совпадает с числом
+    long long n;
+    printf("input: ");
+    scanf("%lld", &n);
+    long long a[n];
+
+    for (long long i = 0; i <= n; i++)
     {
-        arr[i] = i;
-        i++;
+        a[i] = 1;
     }
-    while (k <= x) // решето эратосфена
+
+
+    
+    printf ("test1\n");
+    for (long long i = 2; i*i <= n; i++)
     {
-        if (arr[k] != 0)
+        if (a[i] == 1)
         {
-            for (long long v = 2; k * v <= x; v++)
+            for (long long j = i * i; j <= n; j += i )
             {
-                arr[k * v] = 1; // заполнение массива 
+                a[j] = 0;
             }
         }
-        k++;
     }
+    printf ("test2\n");
 
-    while (x % arr[k-1] != 0 || arr[k-1] == 1) // поиск наибольшего простого делителя
+    for (long long i = n; i >= 2; i--)
     {
-        k--;
+        if (a[i] == 1)
+        {
+            if (n % i == 0)
+            {
+                printf ("%lld ", i);
+                return 0;
+            }
+        }
+        
     }
     
-    printf("%lld\n", arr[k-1]);
-
-    /*for (int j = 0; j < i; j++) // вывод массива для отладки
+    
+    /*for (long long i = 2; i <= n; i++)
     {
-        printf("%lld ", arr[j]);
+        if (a[i] == 1)
+        {
+            printf("%lld ", i);
+        }
+        
+    }*/ // рабочий вариант вывода простых чисел
+    printf ("\ntest3\n");
+    /*for (long long j = 0; j <= n; j++) // вывод массива для отладки
+    {
+        printf("%lld ", a[j]);
     }*/
 
     return 0;
