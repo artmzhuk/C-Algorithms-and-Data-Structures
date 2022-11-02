@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define MAX(a,b) ((a) > (b) ? (a) : (b))
-#define MIN(a,b) ((a) < (b) ? (a) : (b))
 
 void scanArray(long set[], long size) //считывает эл-ты массива
 {
