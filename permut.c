@@ -53,4 +53,6 @@ int main(int argc, char **argv)
         printf("yes");
         break;
     }
+
+    return 0;
 }
