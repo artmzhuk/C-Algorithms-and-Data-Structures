@@ -5,7 +5,7 @@ int main(int argc, char **argv)
     unsigned long long a, b, m, b2, result;
     unsigned long long i = 0; // i-номер двоичного разряда;
     int arr[64];
-    printf("input\n");
+    //printf("input\n");
     scanf("%llu %llu %llu", &a, &b, &m);
     b2 = b;
     while (b2 > 0) 
