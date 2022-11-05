@@ -4,3 +4,5 @@ tempCodeRunnerFile.c
 tempCodeRunnerFile.exe
 test.c
 .vscode/*
+.vscode/launch.json
+.gitignore
