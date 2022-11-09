@@ -5,4 +5,17 @@ tempCodeRunnerFile.exe
 test.c
 .vscode/*
 .vscode/launch.json
+.vscode/tasks.json
 .gitignore
+fibsys
+fibsys1
+frame
+intersect
+maxarray
+maxk
+mulmod
+permut
+polynom
+primediv
+revarray
+saddlepoint
