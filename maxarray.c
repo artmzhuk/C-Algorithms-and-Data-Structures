@@ -45,8 +45,8 @@ int comparee(void *a, void *b)
 
 int main(int argc, char **argv)
 {
-    long array[1000];
-    scanArray(array, 1000);
-    printf("%d", maxarray(array, 1000, sizeof(int), comparee));
+    long array[5];
+    scanArray(array, 5);
+    printf("%d\n", maxarray(array, 5, sizeof(long), comparee));
     return 0;
 }
