@@ -30,26 +30,58 @@ int compare(unsigned long i, unsigned long j)
 	else return 1;
 }
 
+// void bubblesort(unsigned long nel,int (*compare)(unsigned long i, unsigned long j),
+// void (*swap)(unsigned long i, unsigned long j))
+// {
+//         unsigned long t = nel - 1;// t -- граница несортированной части
+//         unsigned long bound, i; // bound -- просто граница
+//         while(t > 0)
+//         {
+//             bound = t;
+//             t = 0;
+//             i = 0;
+//             while(i < bound)
+//             {
+//                 if(compare(i+1, i) == -1)
+//                 {
+//                     swap(i+1, i);
+//                     t = i;
+//                 }
+//                 i++;
+//             }
+//         }
+// }
+
+
 void bubblesort(unsigned long nel,int (*compare)(unsigned long i, unsigned long j),
 void (*swap)(unsigned long i, unsigned long j))
 {
-        unsigned long t = nel - 1;// t -- граница несортированной части
-        unsigned long bound, i; // bound -- просто граница
-        while(t > 0)
+    char swapFlag = 1;
+    
+    while(swapFlag == 1)
+    {
+        for (unsigned long i = 0; i <= nel - 2; i++)// or <=
         {
-            bound = t;
-            t = 0;
-            i = 0;
-            while(i < bound)
+            if(compare(i, i + 1) == 1)
             {
-                if(compare(i+1, i) == -1)
-                {
-                    swap(i+1, i);
-                    t = i;
-                }
-                i++;
+                swap(i, i + 1);
+                swapFlag = 1;
             }
         }
+        if (swapFlag != 1)
+        {
+            break;
+        }
+        swapFlag = 0;
+        for(unsigned long i = nel - 2; i >= 0; i--)
+        {
+            if(compare(i, i + 1) == 1)
+            {
+                swap(i, i + 1);
+                swapFlag = 1;
+            }
+        }
+    }
 }
 
 int main(int argc, char **argv)
