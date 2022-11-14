@@ -44,18 +44,18 @@ void allSums(long array[], int n, int size, long sum, int *counter)
 
 int main(int argc, char **argv)
 {
-    int size;// кол-во элементов
+    int size; // кол-во элементов
     scanf("%i", &size);
 
-    long numbers[size];// массив с числами
+    long numbers[size]; // массив с числами
     scanArray(numbers, size);
 
     int *counter = malloc(sizeof(int));
     *counter = 0; //счетчик сумм равных степени двойки
 
-    allSums(numbers, 0, size-1, 0, counter);
+    allSums(numbers, 0, size - 1, 0, counter);
     printf("%i \n", *counter);
-
+    free(counter);
 
     return 0;
 }
