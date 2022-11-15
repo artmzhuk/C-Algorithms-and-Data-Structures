@@ -32,59 +32,42 @@ void shellsort(unsigned long nel,
                int (*compare)(unsigned long i, unsigned long j),
                void (*swap)(unsigned long i, unsigned long j))
 {
-    unsigned long fib[95];
-    unsigned long maxF = 2;
-    int j = 2;
-
+    unsigned long fib[nel];
+    unsigned long fibIndex = 1;
     fib[0] = 1;
     fib[1] = 1;
-    while (maxF <= nel)
+    for (; fib[fibIndex] <= nel; fibIndex++)
     {
-        fib[j] = fib[j - 1] + fib[j - 2];
-        maxF = fib[j];
-        j++;
+        fib[fibIndex + 1] = fib[fibIndex] + fib[fibIndex - 1];
     }
-    unsigned long d = fib[j-2];
-    //unsigned long d = 1;
-    while(d >= 1)
+    fibIndex--;
+    unsigned long delta = fib[fibIndex];
+
+    while (fibIndex >= 1)
     {
-        for(unsigned long i = d; i < nel; i++)
+        for (unsigned long i = delta; i < nel; i++)
         {
-            for(unsigned long k = i; k > 0 && compare(k, k - d) == -1; k-= d)
+            for (long long j = i - delta; j >= 0 && compare(j, j + delta) == 1; j -= delta)
             {
-                swap(k, k - d);
+                swap(j, j + delta);
             }
         }
-        j--;
-        d = fib[j-2];
-        //d--;
+        fibIndex--;
+        delta = fib[fibIndex];
     }
-
-//     unsigned long i = 1;
-//     while (i < nel)
-//     {
-//         long long loc = i - 1;
-//         while (loc >= 0 && compare(loc + 1, loc) == -1)
-//         {
-//             swap(loc + 1, loc);
-//             loc--;
-//         }
-//         i++;
-//     }
 }
 
 int main(int argc, char **argv)
 {
     unsigned long nel;
     scanf("%lu", &nel);
-
-    array = malloc(sizeof(unsigned long) * (nel + 1));
+    array = malloc(sizeof(unsigned long) * nel);
 
     scanArray(array, nel);
 
     shellsort(nel, compare, swap);
 
-    for (unsigned long i = 0; i < nel +1; i++)
+    for (unsigned long i = 0; i < nel; i++)
     {
         printf("%lu ", array[i]);
     }
