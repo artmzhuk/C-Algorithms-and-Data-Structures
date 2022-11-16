@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-unsigned long *array;
+long *array;
 
-void scanArray(unsigned long *array, unsigned long nel) //считывает эл-ты массива
+void scanArray(long *array, unsigned long nel) //считывает эл-ты массива
 {
-    for (unsigned long i = 0; i <= nel - 1; i++)
+    for (long i = 0; i <= nel - 1; i++)
     {
         scanf("%lu", &array[i]);
     }
@@ -13,19 +13,18 @@ void scanArray(unsigned long *array, unsigned long nel) //считывает э�
 
 void swap(unsigned long i, unsigned long j)
 {
-    unsigned long tmp = *(array + i);
+    if(i < 6 || j < 6)
+    {
+        printf("test2");
+    }
+    long tmp = *(array + i);
     *(array + i) = *(array + j);
     *(array + j) = tmp;
 }
 
 int compare(unsigned long i, unsigned long j)
 {
-    if (*(array + i) < *(array + j))
-        return -1;
-    else if (*(array + i) == *(array + j))
-        return 0;
-    else
-        return 1;
+    return array[i]<array[j] ? -1 : array[i]> array[j] ? +1 : 0;
 }
 
 void shellsort(unsigned long nel,
@@ -45,7 +44,7 @@ void shellsort(unsigned long nel,
 
     while (fibIndex >= 1)
     {
-        // printf("sorting gap is: (%lu) ", fib[fibIndex]);
+        // printf("sorting gap is: (%lu) \n", fib[fibIndex]);
         for (unsigned long i = delta; i < nel; i++)
         {
             for (long long j = i - delta; j >= 0 && compare(j, j + delta) == 1; j -= delta)
@@ -70,15 +69,20 @@ int main(int argc, char **argv)
 {
     unsigned long nel;
     scanf("%lu", &nel);
-    array = malloc(sizeof(unsigned long) * nel);
+    array = malloc(sizeof(long long) * nel);
+    if(array == NULL)
+    {
+        printf("malloc failed(((");
+    }
 
     scanArray(array, nel);
 
     shellsort(nel, compare, swap);
 
+    printf("\n result is: \n");
     for (unsigned long i = 0; i < nel; i++)
     {
-        printf("%lu ", array[i]);
+        printf("%li ", array[i]);
     }
     printf(" \n");
 
