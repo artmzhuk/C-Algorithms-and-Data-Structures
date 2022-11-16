@@ -45,21 +45,22 @@ void shellsort(unsigned long nel,
 
     while (fibIndex >= 1)
     {
-        printf("sorting gap is: (%lu) ", fib[fibIndex]);
+        // printf("sorting gap is: (%lu) ", fib[fibIndex]);
         for (unsigned long i = delta; i < nel; i++)
         {
             for (long long j = i - delta; j >= 0 && compare(j, j + delta) == 1; j -= delta)
             {
-                printf("\n swapping %lu (%lli) and %lu (%lli) \n", array[j], j, array[j+delta], j+delta);
+                // printf("\n swapping %lu (%lli) and %lu (%lli) \n", array[j], j, array[j+delta], j+delta);
                 swap(j, j + delta);
             }
         }
 
-        for(unsigned long h = 0; h < nel; h++)
-        {
-            printf("%lu ", array[h]);
-        }
-        printf("\n");
+        // for(unsigned long h = 0; h < nel; h++)
+        // {
+        //     printf("%lu ", array[h]);
+        // }
+        // printf("\n");
+
         fibIndex--;
         delta = fib[fibIndex];
     }
