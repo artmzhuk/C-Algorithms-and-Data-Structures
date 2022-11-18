@@ -45,7 +45,6 @@ void csort(char *src, char *dest)
     printf("\n");
 
     int used = 0;
-    char *end = dest;
     for(int i = 1; i <= wordLenMax; i++)//проверка длины слова
     {
         for(int j = 0; j < wordIndex; j++)
@@ -63,11 +62,11 @@ void csort(char *src, char *dest)
 
 int main(int argc, char **argv)
 {
-    char src[1001] = "qqq  www  t  aa rrr  bb  x y zz IIIIII pppp lgkgkkg 55555555555555555555555555 7";
+    char src[1001];
     char dest[1001];
-    //fgets(src, sizeof(src), stdin);
+    fgets(src, sizeof(src), stdin);
     csort(src, dest);
-    printf("sorted array is\n");
+    //printf("sorted array is\n");
     puts(dest);
     printf("\n");
     return 0;
