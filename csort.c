@@ -32,7 +32,6 @@ void csort(char *src, char *dest)
             
         }
     }
-    /*
     printf("\ncounted letters in words\n");
     for (int j = 0; j < wordIndex; j++)
     {
@@ -44,29 +43,31 @@ void csort(char *src, char *dest)
         printf("%i ", wordStartId[j]);
     }
     printf("\n");
-    */
 
     int used = 0;
-    for(int i = 1; i <= wordLenMax; i++)
+    char *end = dest;
+    for(int i = 1; i <= wordLenMax; i++)//проверка длины слова
     {
         for(int j = 0; j < wordIndex; j++)
         {
             if(wordLengths[j] == i)
             {
-                memcpy(dest + used, src + wordStartId[j], i );
+                memcpy(dest + used, src + wordStartId[j], i);
                 dest[used + i] = ' ';
-                used += i + 1;
+                used += i + 1; 
             }
         }         
     }
+    dest[used - 1] = '\0';
 }
 
 int main(int argc, char **argv)
 {
-    char src[1001] = "qqq  www  t  aa rrr  bb  x y zz";
+    char src[1001] = "qqq  www  t  aa rrr  bb  x y zz IIIIII pppp lgkgkkg 55555555555555555555555555 7";
     char dest[1001];
     //fgets(src, sizeof(src), stdin);
     csort(src, dest);
+    printf("sorted array is\n");
     puts(dest);
     printf("\n");
     return 0;
