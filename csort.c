@@ -7,7 +7,7 @@
 
 void csort(char *src, char *dest)
 {
-    int strLength = strlen(src);
+    int strLength = (int)strlen(src);
     int wordLengths[501] = {0};
     int wordLenMax = 0;
     int wordIndex = 0;
@@ -15,7 +15,7 @@ void csort(char *src, char *dest)
     int wordStartId[501] = {0};
     for (int i = 0; i <= strLength;i++) // проходит по строке, начало строки -- индекс 0
     {
-        if (src[i] == ' ' || src[i] == '\0')
+        if (src[i] == ' ' || src[i] == '\0' || src[i] == '\n')
         {
             if(i - wordStart > wordLenMax)
             wordLenMax = i -wordStart;
@@ -62,8 +62,8 @@ void csort(char *src, char *dest)
 
 int main(int argc, char **argv)
 {
-    char src[1001];
-    char dest[1001];
+    char src[1001] = {0};
+    char dest[1001] = {0};
     fgets(src, sizeof(src), stdin);
     csort(src, dest);
     //printf("sorted array is\n");
