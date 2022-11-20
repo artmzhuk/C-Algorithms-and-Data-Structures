@@ -1,15 +1,11 @@
 #include <stdio.h>
 
-void saddlepoint(int rows, int columns, long **matrix)
-{
-}
-
-int main(int argc, char **argv)
+int main()
 {
     int rows = 0;
     int columns = 0;
-    scanf("%li", &rows);
-    scanf("%li", &columns);
+    scanf("%i", &rows);
+    scanf("%i", &columns);
     long matrix[rows][columns];
     for (int i = 0; i <= rows - 1; i++)
     {
