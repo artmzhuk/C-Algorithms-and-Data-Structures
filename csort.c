@@ -1,9 +1,6 @@
-#include <stddef.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <time.h>
-#include <wchar.h>
+
 
 void csort(char *src, char *dest)
 {
@@ -60,7 +57,7 @@ void csort(char *src, char *dest)
     dest[used - 1] = '\0';
 }
 
-int main(int argc, char **argv)
+int main()
 {
     char src[1001] = {0};
     char dest[1001] = {0};
