@@ -1,13 +1,9 @@
 #include <stdio.h>
 #include <stddef.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
-#include <wchar.h>
 
 void heapify(void *base, int i, size_t nel, size_t width);
-void buildheap(void *base, size_t nel, size_t width);
 void hsort(void *base, size_t nel, size_t width,
            int (*compare)(const void *a, const void *b));
 void swap(void *base, int a, int b, size_t width);
@@ -16,12 +12,19 @@ int compare(const void *a, const void *b);
 
 int main()
 {
-    int array[6] = {2, 8, 5, 3, 9, 1};
-    hsort(array, 6, sizeof(int), *compare);
-    //heapify(array, 0, 6, sizeof(int));
-    for(int i = 0; i < 6; i++)
+    //int array[6] = {2, 8, 5, 3, 9, 1};
+    int nel;
+    scanf("%d", &nel);
+    char src[nel][1001];
+    for(int i = 0; i < nel; i++)
     {
-        printf("%i ", array[i]);
+        scanf("%s", src[i]);
+
+    }
+    hsort(src, nel, 1001, compare);
+    for(int i = 0; i < nel; ++i)
+    {
+        printf("%s \n", src[i]);
     }
     printf("\n");
     return 0;
@@ -47,15 +50,6 @@ void heapify(void *base, int i, size_t nel, size_t width)
         swap(base, i, max, width);
 
         heapify(base, max, nel, width);
-    }
-}
-
-void buildheap(void *base, size_t nel, size_t width)
-{
-    int n = (int)nel;
-    for (int i = n / 2 - 1; i >= 0; i--)
-    {
-        heapify(base, i, nel, width);
     }
 }
 
@@ -86,5 +80,21 @@ void swap(void *base, int a, int b, size_t width)
 
 int compare(const void *a, const void *b)
 {
-    return (*(int *)a - *(int *)b);
+    int counterA = 0;
+    int counterB = 0;
+    char elementA = *(char*)a;
+    char elementB = *(char*)b;
+    for(int i = 0; i < 1001 && elementA != '\0'; i++)
+    {
+        if(elementA == 'a')
+            counterA += 1;
+        elementA = *(char*)(a + i);
+    }
+    for(int i = 0; i < 1001 && elementB != '\0'; i++)
+    {
+        if(elementB == 'a')
+            counterB += 1;
+        elementB = *(char*)(b + i);
+    }
+    return counterA - counterB;
 }
