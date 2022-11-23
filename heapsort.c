@@ -71,11 +71,11 @@ void hsort(void *base, size_t nel, size_t width,
 
 void swap(void *base, int a, int b, size_t width)
 {
-    void *tmp = malloc(width);
-    memcpy(tmp, base + a * width, width);
+    void *swapBuffer = malloc(width);
+    memcpy(swapBuffer, base + a * width, width);
     memcpy(base + a * width, base + b * width, width);
-    memcpy(base + b * width, tmp, width);
-    free(tmp);
+    memcpy(base + b * width, swapBuffer, width);
+    free(swapBuffer);
 }
 
 int compare(const void *a, const void *b)
