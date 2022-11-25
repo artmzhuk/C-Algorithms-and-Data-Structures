@@ -23,3 +23,5 @@ superstr
 power2
 bubblesort
 mulmod_without_binary.c
+/CMakeLists.txt
+/primedivBin.c
