@@ -7,6 +7,25 @@ union Int32 {
     unsigned char bytes[4];
 };
 
+void scanArray(union Int32* array, int nel);
+void printArray(union Int32* array, int nel);
+void generateKeys(union Int32 *source, int charN, int nel, unsigned char* keys);
+void dsort(const unsigned char *key, int radix, union Int32 *source, int n, union Int32 *dest);
+void radixSort(union Int32 *source, union Int32 *dest, int nel);
+
+int main(){
+    int nel;
+    scanf("%d", &nel);
+    union Int32 source[nel];
+    union Int32 dest[nel];
+    scanArray(source, nel);
+    radixSort(source, dest, nel);
+    printArray(dest, nel);
+
+
+    return 0;
+}
+
 void scanArray(union Int32* array, int nel){ //also flipping the sign bit (to add support of negative numbers)
     for(int i = 0; i < nel; i++){
         scanf("%d", &array[i].x);
@@ -27,7 +46,7 @@ void generateKeys(union Int32 *source, int charN, int nel, unsigned char* keys){
     }
 }
 
-void dsort(const unsigned char *key, int radix, union Int32 *source, int n, union Int32 *dest) { //n-nel, m - number of keys
+void dsort(const unsigned char *key, int radix, union Int32 *source, int n, union Int32 *dest){ //radix = 256
     unsigned char k;
     int j = 0;
     int i = 1;
@@ -53,9 +72,8 @@ void dsort(const unsigned char *key, int radix, union Int32 *source, int n, unio
     free(count);
 }
 
-void radixSort(union Int32 *source, union Int32 *dest, int nel) {
+void radixSort(union Int32 *source, union Int32 *dest, int nel){
     unsigned char keys[nel];
-    //int *radix = malloc(1); //number of digits in single position (razryad?)
     memcpy(dest, source, sizeof(int) * nel);
 
     for (int id = 0; id <= 3; id++) {
@@ -63,18 +81,4 @@ void radixSort(union Int32 *source, union Int32 *dest, int nel) {
         dsort(keys, 256, source, nel, dest);
         memcpy(source, dest, sizeof(int) * nel);
     }
-    //free(radix);
-}
-
-int main(){
-    int nel;
-    scanf("%d", &nel);
-    union Int32 source[nel];
-    union Int32 dest[nel];
-    scanArray(source, nel);
-    radixSort(source, dest, nel);
-    printArray(dest, nel);
-
-
-    return 0;
 }
