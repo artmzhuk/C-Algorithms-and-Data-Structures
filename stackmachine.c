@@ -12,43 +12,28 @@ struct Stack {
 };
 
 void performOps(struct Stack *stack, long n);
-
 void initStack(struct Stack *stack, long n);
-
 int stackEmpty(struct Stack *stack);
-
 void push(struct Stack *stack, long x);
-
 long pop(struct Stack *stack);
-
-void fCONST(char *currentOp, struct Stack *stack);
-
+void fCONST(char *secondWord, struct Stack *stack);
 void fADD(struct Stack *stack);
-
 void fSUB(struct Stack *stack);
-
 void fMUL(struct Stack *stack);
-
 void fDIV(struct Stack *stack);
-
 void fMAX(struct Stack *stack);
-
 void fMIN(struct Stack *stack);
-
 void fNEG(struct Stack *stack);
-
 void fDUP(struct Stack *stack);
-
 void fSWAP(struct Stack *stack);
+long getNOps();
 
 int main() {
     struct Stack *stack = malloc(sizeof(struct Stack));
     if (stack == NULL)
         return -1;
 
-    long nOps;
-    scanf("%li", &nOps);
-
+    long nOps = getNOps();
     performOps(stack, nOps);
     printf("%li", pop(stack));
 
@@ -83,9 +68,9 @@ long pop(struct Stack *stack) {
     return x;
 }
 
-void fCONST(char *currentOp, struct Stack *stack) {
+void fCONST(char *secondWord, struct Stack *stack) {
     char *end;
-    long x = strtol(currentOp + 5, &end, 10);
+    long x = strtol(secondWord, &end, 10);
     push(stack, x);
 }
 
@@ -145,34 +130,44 @@ void fSWAP(struct Stack *stack) {
 
 void performOps(struct Stack *stack, long n) {
     initStack(stack, n);
-    char *buf = malloc(3);
-    fgets(buf, 3, stdin);//removes /r and /n
-    free(buf);
     char *currentOp = malloc(20);
+    char *firstWord;
+    char *secondWord;
     for (int i = 0; i < n; i++) {
         fgets(currentOp, 20, stdin);
-        if (strlen(currentOp) > 6 && currentOp[0] == 'C')
-            fCONST(currentOp, stack);
-        else if (strcmp(currentOp, "ADD\r\n") == 0)
+        firstWord = strtok(currentOp, " \r\n");
+        secondWord = strtok(NULL, " \r\n");
+        if (strcmp(firstWord, "CONST") == 0)
+            fCONST(secondWord, stack);
+        else if (strcmp(firstWord, "ADD") == 0)
             fADD(stack);
-        else if (strcmp(currentOp, "SUB\r\n") == 0)
+        else if (strcmp(firstWord, "SUB") == 0)
             fSUB(stack);
-        else if (strcmp(currentOp, "MUL\r\n") == 0)
+        else if (strcmp(firstWord, "MUL") == 0)
             fMUL(stack);
-        else if (strcmp(currentOp, "DIV\r\n") == 0)
+        else if (strcmp(firstWord, "DIV") == 0)
             fDIV(stack);
-        else if (strcmp(currentOp, "MAX\r\n") == 0)
+        else if (strcmp(firstWord, "MAX") == 0)
             fMAX(stack);
-        else if (strcmp(currentOp, "MIN\r\n") == 0)
+        else if (strcmp(firstWord, "MIN") == 0)
             fMIN(stack);
-        else if (strcmp(currentOp, "NEG\r\n") == 0)
+        else if (strcmp(firstWord, "NEG") == 0)
             fNEG(stack);
-        else if (strcmp(currentOp, "DUP\r\n") == 0)
+        else if (strcmp(firstWord, "DUP") == 0)
             fDUP(stack);
-        else if (strcmp(currentOp, "SWAP\r\n") == 0)
+        else if (strcmp(firstWord, "SWAP") == 0)
             fSWAP(stack);
         else
             printf("invalid operation");
     }
     free(currentOp);
+}
+
+long getNOps() {
+    char* end;
+    char* nOps = malloc(10);
+    fgets(nOps, 10, stdin);
+    long x = strtol(nOps, &end, 10);
+    free(nOps);
+    return x;
 }
