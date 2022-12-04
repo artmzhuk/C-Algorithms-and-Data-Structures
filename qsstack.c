@@ -19,8 +19,6 @@ void qssort(long* array, int low, int high);
 void scanArray(long* array, int nel);
 void printArray(long* array, int nel);
 
-//void catchMax(int* max, int current);//degug function
-
 int main(){
     int nel;
     scanf("%d", &nel);
@@ -49,8 +47,6 @@ void qssort(long *array, int low, int high) {
     stack->top = 0;
     struct Task currentTask;
     push(stack, low, high);
-/*    debug
-    int max = stack->top;*/
     while(stack->top > 0){
         currentTask = pop(stack);
         int pivot = partition(currentTask.low, currentTask.high, array);
@@ -58,15 +54,9 @@ void qssort(long *array, int low, int high) {
             push(stack, currentTask.low, pivot - 1);
         if(pivot + 1 < currentTask.high)
             push(stack, pivot + 1, currentTask.high);
-/*        catchMax(&max, stack->top); debug*/
     }
     free(stack->tasks);
     free(stack);
-}
-
-void catchMax(int *max, int current) {
-    if(current > *max)
-        *max = current;
 }
 
 int partition(int low, int high, long *array) {
