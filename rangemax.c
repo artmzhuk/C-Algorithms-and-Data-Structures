@@ -76,7 +76,7 @@ void scanElements(long nel, long *array) {
 
 void scanOps(int m, char *operations) {
     char* buf = malloc(3);
-    fgets(buf, 3, stdin);//removes /r and /n
+    fgets(buf, 3, stdin); //removes /r and /n left from scanf
     free(buf);
     for(int i = 0; i < m; i++){
         fgets(operations + i * 30, 30, stdin);
