@@ -29,37 +29,7 @@ long Maximum(struct dStack* D);
 /*string functions
 vvvvvvvvvvvvvvvvvvvvvvvv*/
 long getNOps();
-
-void performOps(struct dStack* Q, struct dStack* D, long n) {
-    char *currentOp = malloc(20);
-    char *firstWord;
-    char *secondWord;
-    for (long i = 0; i < n; i++) {
-        fgets(currentOp, 20, stdin);
-        firstWord = strtok(currentOp, " \r\n");
-        secondWord = strtok(NULL, " \r\n");
-        if (strcmp(firstWord, "ENQ") == 0){
-            char *end;
-            long x = strtol(secondWord, &end, 10);
-            Enqueue(Q, D, x);
-        }
-        else if (strcmp(firstWord, "DEQ") == 0){
-            printf("%li\n", Dequeue(Q, D));
-        }
-        else if (strcmp(firstWord, "MAX") == 0){
-            printf("%li\n", Maximum(D));
-        }
-        else if (strcmp(firstWord, "EMPTY") == 0){
-            if(queueEmpty(Q) == 1)
-                printf("true\n");
-            else
-                printf("false\n");
-        }
-        else
-            printf("invalid operation");
-    }
-    free(currentOp);
-}
+void performOps(struct dStack* Q, struct dStack* D, long n);
 
 int main(){
     long NOps = getNOps();
@@ -223,4 +193,35 @@ long getNOps() {
     long x = strtol(nOps, &end, 10);
     free(nOps);
     return x;
+}
+
+void performOps(struct dStack *Q, struct dStack *D, long n) {
+    char *currentOp = malloc(20);
+    char *firstWord;
+    char *secondWord;
+    for (long i = 0; i < n; i++) {
+        fgets(currentOp, 20, stdin);
+        firstWord = strtok(currentOp, " \r\n");
+        secondWord = strtok(NULL, " \r\n");
+        if (strcmp(firstWord, "ENQ") == 0){
+            char *end;
+            long x = strtol(secondWord, &end, 10);
+            Enqueue(Q, D, x);
+        }
+        else if (strcmp(firstWord, "DEQ") == 0){
+            printf("%li\n", Dequeue(Q, D));
+        }
+        else if (strcmp(firstWord, "MAX") == 0){
+            printf("%li\n", Maximum(D));
+        }
+        else if (strcmp(firstWord, "EMPTY") == 0){
+            if(queueEmpty(Q) == 1)
+                printf("true\n");
+            else
+                printf("false\n");
+        }
+        else
+            printf("invalid operation");
+    }
+    free(currentOp);
 }
