@@ -1,7 +1,6 @@
 #include <stdio.h>
 
-
-int main(int argc, char **argv)
+int main()
 {
     unsigned long long x; 
     unsigned long long fib[95];
@@ -17,7 +16,6 @@ int main(int argc, char **argv)
         printf("%i", ans);
         
     }
-
     fib[0]= 1;
     fib[1]= 1;
     while(maxF <= x)

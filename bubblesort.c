@@ -1,38 +1,3 @@
-#include <stdio.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <wchar.h>
-
-unsigned long *array;
-
-void scanArray(unsigned long *array, unsigned long nel) //считывает эл-ты массива
-{
-    for (unsigned long i = 0; i <= nel - 1; i++)
-    {
-        scanf("%lu", &array[i]);
-    }
-}
-
-void swap(unsigned long i, unsigned long j)
-{
-    unsigned long tmp = *(array + i);
-    *(array + i) = *(array + j);
-    *(array + j) = tmp;
-}
-
-int compare(unsigned long i, unsigned long j)
-{
-    if (*(array + i) < *(array + j))
-        return -1;
-    else if (*(array + i) == *(array + j))
-        return 0;
-    else
-        return 1;
-}
-
 void bubblesort(unsigned long nel, int (*compare)(unsigned long i, unsigned long j),
                 void (*swap)(unsigned long i, unsigned long j))
 {
@@ -53,7 +18,7 @@ void bubblesort(unsigned long nel, int (*compare)(unsigned long i, unsigned long
                     swapFlag = 1;
                 }
             }
-            if (swapFlag = 0)
+            if (swapFlag == 0)
             {
                 break;
             }
@@ -72,7 +37,40 @@ void bubblesort(unsigned long nel, int (*compare)(unsigned long i, unsigned long
     }
 }
 
-int main(int argc, char **argv)
+/*
+driver code
+ vvvvvvvvvvvvvvvvvvvvvvvv
+#include <stdio.h>
+#include <stdlib.h>
+
+unsigned long *array;
+
+void scanArray(unsigned long *initializedArray, unsigned long nel) //считывает эл-ты массива
+{
+    for (unsigned long i = 0; i <= nel - 1; i++)
+    {
+        scanf("%lu", &initializedArray[i]);
+    }
+}
+
+void swap(unsigned long i, unsigned long j)
+{
+    unsigned long tmp = *(array + i);
+    *(array + i) = *(array + j);
+    *(array + j) = tmp;
+}
+
+int compare(unsigned long i, unsigned long j)
+{
+    if (*(array + i) < *(array + j))
+        return -1;
+    else if (*(array + i) == *(array + j))
+        return 0;
+    else
+        return 1;
+}
+
+int main()
 {
     unsigned long nel;
     scanf("%lu", &nel);
@@ -92,4 +90,4 @@ int main(int argc, char **argv)
     free(array);
 
     return 0;
-}
+}*/

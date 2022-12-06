@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 
-
 void csort(char *src, char *dest)
 {
     int strLength = (int)strlen(src);
@@ -29,18 +28,6 @@ void csort(char *src, char *dest)
             
         }
     }
-    printf("\ncounted letters in words\n");
-    for (int j = 0; j < wordIndex; j++)
-    {
-        printf("%i ", wordLengths[j]);
-    }
-    printf("\nstart id's of words\n");
-    for (int j = 0; j < wordIndex; j++)
-    {
-        printf("%i ", wordStartId[j]);
-    }
-    printf("\n");
-
     int used = 0;
     for(int i = 1; i <= wordLenMax; i++)//проверка длины слова
     {
@@ -63,7 +50,6 @@ int main()
     char dest[1001] = {0};
     fgets(src, sizeof(src), stdin);
     csort(src, dest);
-    //printf("sorted array is\n");
     puts(dest);
     printf("\n");
     return 0;
