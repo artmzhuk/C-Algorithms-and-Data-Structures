@@ -22,7 +22,7 @@ vvvvvvvvvvvvvvvvvvvvvvv*/
 long getRearElementDeq(struct dStack* D);
 long getFirstElementDeq(struct dStack* D);
 long getFirstElementQue(struct dStack* Q);
-long popDeque(struct dStack* D);
+long popFrontDeque(struct dStack* D);
 void Enqueue(struct dStack* Q, struct dStack* D, long x);
 long Dequeue(struct dStack* Q, struct dStack* D);
 long Maximum(struct dStack* D);
@@ -34,7 +34,7 @@ void performOps(struct dStack* Q, struct dStack* D, long n) {
     char *currentOp = malloc(20);
     char *firstWord;
     char *secondWord;
-    for (int i = 0; i < n; i++) {
+    for (long i = 0; i < n; i++) {
         fgets(currentOp, 20, stdin);
         firstWord = strtok(currentOp, " \r\n");
         secondWord = strtok(NULL, " \r\n");
@@ -47,13 +47,13 @@ void performOps(struct dStack* Q, struct dStack* D, long n) {
             printf("%li\n", Dequeue(Q, D));
         }
         else if (strcmp(firstWord, "MAX") == 0){
-            printf("%liM\n", Maximum(D));
+            printf("%li\n", Maximum(D));
         }
         else if (strcmp(firstWord, "EMPTY") == 0){
             if(queueEmpty(Q) == 1)
-                printf("true \n");
+                printf("true\n");
             else
-                printf("false \n");
+                printf("false\n");
         }
         else
             printf("invalid operation");
@@ -88,9 +88,9 @@ void initStack(struct dStack *s, long nel, long *data) {
     s->top2 = nel - 1;
 }
 
-int stackEmpty1(struct dStack *s) {
-    if(s->top1 == 0)
-        return  1;
+int stackEmpty1(struct dStack* s) {
+    if(s->top1 == (long)0)
+        return 1;
     else
         return 0;
 }
@@ -157,20 +157,22 @@ long getRearElementDeq(struct dStack *D) {
 }
 
 long getFirstElementDeq(struct dStack *D) {
-    if(D->top1 > 0)
-        return D->data[D->top1 - 1];
+    long res;
+    if(D->top1 != 0)
+        res =  D->data[D->top1 - 1];
     else
-        return D->data[D->cap - 1];
+        res = D->data[D->cap - 1];
+    return res;
 }
 
 long getFirstElementQue(struct dStack *Q) {
-    if(stackEmpty2(Q) == 1)
+    if(Q->top2 == Q->cap - 1)
         return Q->data[0];
     else
-        return Q->data[Q->top2 - 1];
+        return Q->data[Q->top2 + 1];
 }
 
-long popDeque(struct dStack *D) {
+long popFrontDeque(struct dStack *D) {
     if(stackEmpty1(D) == 1)
         while (stackEmpty2(D) == 0)
             push1(D, pop2(D));
@@ -179,12 +181,22 @@ long popDeque(struct dStack *D) {
 }
 
 void Enqueue(struct dStack *Q, struct dStack *D, long x) {
-    push1(Q, x);
-    if(queueEmpty(D) == 1)
+    if(queueEmpty(Q) == 1){
+        push1(Q, x);
         push2(D, x);
+    }
     else{
-        while(getRearElementDeq(D) < x && queueEmpty(D) == 0)
-            popDeque(D);
+        push1(Q, x);
+        while(getRearElementDeq(D) < x && queueEmpty(D) == 0){
+            if(stackEmpty2(D) == 0){
+                pop2(D);
+            } else{
+                while(stackEmpty1(D) == 0){
+                    push2(D, pop1(D));
+                }
+                pop2(D);
+            }
+        }
         push2(D, x);
     }
 }
@@ -193,7 +205,7 @@ long Dequeue(struct dStack *Q, struct dStack *D) {
     long res;
     if(getFirstElementDeq(D) == getFirstElementQue(Q)){
         res = popQueue(Q);
-        popDeque(D);
+        popFrontDeque(D);
     } else{
         res = popQueue(Q);
     }
