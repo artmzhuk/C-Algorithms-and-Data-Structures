@@ -53,13 +53,6 @@ void shellsort(unsigned long nel,
                 swap(j, j + delta);
             }
         }
-
-        // for(unsigned long h = 0; h < nel; h++)
-        // {
-        //     printf("%lu ", array[h]);
-        // }
-        // printf("\n");
-
         fibIndex--;
         delta = fib[fibIndex];
     }

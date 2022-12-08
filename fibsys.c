@@ -9,12 +9,13 @@ int main()
     int k = 0;
     int fib2[95] = {0};
     scanf("%llu", &x);
-
-    if(x == 1)
-    {
-        int ans = 1;
-        printf("%i", ans);
-        
+    if(x == 0){
+        printf("0");
+        return 0;
+    }
+    if(x == 1){
+        printf("1");
+        return 0;
     }
     fib[0]= 1;
     fib[1]= 1;
@@ -39,4 +40,5 @@ int main()
         printf("%i", fib2[k-1]);
         k--;
     }
+    return 0;
 }

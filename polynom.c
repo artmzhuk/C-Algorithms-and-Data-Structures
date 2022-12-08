@@ -22,11 +22,12 @@ int main(int argc, char **argv)
     {
         pol = pol * x0 + arr[n - j];
     }
-    printf("%lld\n", pol);
+    printf("%lld ", pol);
     dpol = n * arr[n] * x0 + arr[n - 1] * (n - 1);
     for (long long j = n - 2; j >= 1; j--)
     {
         dpol = dpol * x0 + arr[j] * j;
     }
     printf("%lld", dpol);
-    return 0;}
+    return 0;
+}

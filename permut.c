@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int elementAmount(long set[], long element) // подсчитывает сколько раз элемент встречается в массиве
+int elementAmount(long* set, long element) // подсчитывает сколько раз элемент встречается в массиве
 {
     int n = 0;
     for (int j = 0; j <= 7; j++)
@@ -13,7 +13,7 @@ int elementAmount(long set[], long element) // подсчитывает скол
     return n;
 }
 
-void scanArray(long set[], int size) //считывает эл-ты массива
+void scanArray(long* set, int size) //считывает эл-ты массива
 {
     for (int i = 0; i <= size - 1; i++)
     {
@@ -21,7 +21,7 @@ void scanArray(long set[], int size) //считывает эл-ты массив
     }
 }
 
-int compare(long set1[], long set2[])
+int compare(long* set1, long* set2)
 {
     for (int i = 0; i <= 7; i++)
     {
@@ -35,10 +35,10 @@ int compare(long set1[], long set2[])
 
 int main(int argc, char **argv)
 {
-    long a[7];
-    long b[7];
+    long a[8];
+    long b[8];
 
-    printf("input:\n");
+    //printf("input:\n");
 
     scanArray(a, 8);
     scanArray(b, 8);

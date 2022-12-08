@@ -39,8 +39,10 @@ int main(int argc, char **argv)
 
     scanf("%d", &sizeB);
     B = scanSet(sizeB);
-
-    printSet(intersectSets(A, B));
+    if(sizeA != 0 &&sizeB != 0)
+        printSet(intersectSets(A, B));
+    else
+        printf(" ");
 
     return 0;
 }
