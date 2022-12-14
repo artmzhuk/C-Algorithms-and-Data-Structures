@@ -35,8 +35,8 @@ void dsort(long n, const char *s, char *d) {
 }
 
 int main() {
-    char string[1000001];
-    fgets(string, 1000000, stdin);
+    char string[1000010];
+    fgets(string, 1000010, stdin);
     long nel = (long) strlen(string);
     char result[nel];
     dsort(nel, string, result);//n -- without \0

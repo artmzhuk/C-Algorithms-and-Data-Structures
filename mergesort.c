@@ -2,33 +2,33 @@
 #include <string.h>
 #include <stdlib.h>
 
-void merge(int k, int l, int m, int* p);
-void insertsort(int start, int end, int* a);
-void mergesortRec(int low, int high, int* p);
-void mergesort(int* p, int n);
-void scanArray(int *array, int nel);
-void printArray(int *array, int nel);
+void merge(long k, long l, long m, long* p);
+void insertsort(long start, long end, long* a);
+void mergesortRec(long low, long high, long* p);
+void mergesort(long* p, long n);
+void scanArray(long *array, long nel);
+void printArray(long *array, long nel);
 
 int main()
 {
-    int nel;
-    scanf("%d", &nel);
-    int array[nel];
+    long nel;
+    scanf("%li", &nel);
+    long array[nel];
     scanArray(array, nel);
     mergesort(array, nel);
     printArray(array, nel);
     return 0;
 }
 
-void merge(int k, int l, int m, int* p)
+void merge(long k, long l, long m, long* p)
 {
-    int t[m - k + 1];
-    int i = k;
-    int j = l + 1;
-    int h = 0;
+    long t[m - k + 1];
+    long i = k;
+    long j = l + 1;
+    long h = 0;
     while(h < m - k + 1)
     {
-        if (j <= m && (i == l+1 || abs(p[j]) < abs(p[i])))
+        if (j <= m && (i == l+1 || labs(p[j]) < labs(p[i])))
         {
             t[h] = p[j];
             j += 1;
@@ -40,18 +40,18 @@ void merge(int k, int l, int m, int* p)
         }
         h += 1;
     }
-    memcpy(p + k, t, sizeof(int)* h);//?
+    memcpy(p + k, t, sizeof(long)* h);//?
 }
 
-void insertsort(int start, int end, int* a)
+void insertsort(long start, long end, long* a)
 {
-    int i, elem, loc;
+    long i, elem, loc;
     i = start;
     while (i <= end)
     {
         elem = a[i];
         loc = i - 1;
-        while(loc >= 0 && abs(a[loc]) > abs(elem))
+        while(loc >= 0 && labs(a[loc]) > labs(elem))
         {
             a[loc + 1] = a[loc];
             loc -= 1;
@@ -61,11 +61,11 @@ void insertsort(int start, int end, int* a)
     }
 }
 
-void mergesortRec(int low, int high, int* p)
+void mergesortRec(long low, long high, long* p)
 {
     if (low < high)
     {
-        int med = (low + high) / 2;
+        long med = (low + high) / 2;
         if(med - low >= 4 && high - med - 1  >= 4)
         {
             mergesortRec(low, med, p);
@@ -82,23 +82,23 @@ void mergesortRec(int low, int high, int* p)
 
 
 
-void mergesort(int* p, int n)
+void mergesort(long* p, long n)
 {
     mergesortRec(0, n - 1, p);
 }
 
-void scanArray(int *array, int nel) //считывает эл-ты массива
+void scanArray(long *array, long nel) //считывает эл-ты массива
 {
-    for (int i = 0; i < nel; i++)
+    for (long i = 0; i < nel; i++)
     {
-        scanf("%d", &array[i]);
+        scanf("%li", &array[i]);
     }
 }
 
-void printArray(int *array, int nel)
+void printArray(long *array, long nel)
 {
-    for(int i = 0; i < nel; i++)
+    for(long i = 0; i < nel; i++)
     {
-        printf("%d ", array[i]);
+        printf("%li ", array[i]);
     }
 }

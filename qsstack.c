@@ -43,7 +43,7 @@ void scanArray(long *array, int nel) {
 
 void qssort(long *array, int low, int high) {
     struct Stack *stack = malloc(sizeof(struct Stack));
-    stack->tasks = malloc(high * sizeof(struct Task));
+    stack->tasks = malloc((high + 1) * sizeof(struct Task));
     stack->top = 0;
     struct Task currentTask;
     push(stack, low, high);

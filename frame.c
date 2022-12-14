@@ -35,7 +35,7 @@ int main(int argc, char **argv)
 
     
 
-    for (int i = 1; i < h - 2; i++)
+    for (int i = 1; (i < h - 2) || h == 3; i++)
     {
         if (i == condY)
         {
@@ -53,12 +53,15 @@ int main(int argc, char **argv)
             }
             printf("*\n");
         }
-        printf("*");
-        for (int j = 0; j < w - 2; j++)
-        {
-            printf(" ");
+        if(h != 3) {
+            printf("*");
+            for (int j = 0; (j < w - 2); j++) {
+                printf(" ");
+            }
+            printf("*\n");
         }
-        printf("*\n");
+        if (h == 3)
+            break;
     }
 
     for (int i = 0; i < w; i++)

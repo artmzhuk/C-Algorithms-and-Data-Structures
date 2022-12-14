@@ -6,9 +6,6 @@
 #include <time.h> 
 #include <wchar.h>
 
-//проверить перед отправкой (убрать scanarray, функцию comparee)
-
-
 int maxarray(void *base, size_t nel, size_t width, 
 int (*compare)(void *a, void *b))
 {
@@ -17,9 +14,9 @@ int (*compare)(void *a, void *b))
     int index = 0;
     for(size_t n = 1; n < nel; n++)
     {
-        if(compare ((base + n*width), maxElement) > 0 )
+        if(compare (((char*)base + n*width), maxElement) > 0 )
         {
-            memcpy(maxElement, base + n * width, width);
+            memcpy(maxElement, (char*)base + n * width, width);
             index = (int)n; 
         }
     }

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -11,7 +12,7 @@ struct Stack {
     long top;
 };
 
-void performOps(struct Stack *stack, long n);
+void performOps(struct Stack *stack);
 void initStack(struct Stack *stack, long n);
 int stackEmpty(struct Stack *stack);
 void push(struct Stack *stack, long x);
@@ -26,16 +27,13 @@ void fMIN(struct Stack *stack);
 void fNEG(struct Stack *stack);
 void fDUP(struct Stack *stack);
 void fSWAP(struct Stack *stack);
-long getNOps();
 
 int main() {
     struct Stack *stack = malloc(sizeof(struct Stack));
     if (stack == NULL)
         return -1;
 
-    long nOps = getNOps();
-    performOps(stack, nOps);
-    printf("%li", pop(stack));
+    performOps(stack);
 
     free(stack);
     return 0;
@@ -128,12 +126,12 @@ void fSWAP(struct Stack *stack) {
     push(stack, b);
 }
 
-void performOps(struct Stack *stack, long n) {
-    initStack(stack, n);
+void performOps(struct Stack *stack) {
+    initStack(stack, 50000);
     char *currentOp = malloc(20);
     char *firstWord;
     char *secondWord;
-    for (int i = 0; i < n; i++) {
+    while(true){
         fgets(currentOp, 20, stdin);
         firstWord = strtok(currentOp, " \r\n");
         secondWord = strtok(NULL, " \r\n");
@@ -157,17 +155,12 @@ void performOps(struct Stack *stack, long n) {
             fDUP(stack);
         else if (strcmp(firstWord, "SWAP") == 0)
             fSWAP(stack);
+        else if (strcmp(firstWord, "END") == 0){
+            printf("%li",pop(stack));
+            free(currentOp);
+            return;
+        }
         else
             printf("invalid operation");
     }
-    free(currentOp);
-}
-
-long getNOps() {
-    char* end;
-    char* nOps = malloc(10);
-    fgets(nOps, 10, stdin);
-    long x = strtol(nOps, &end, 10);
-    free(nOps);
-    return x;
 }

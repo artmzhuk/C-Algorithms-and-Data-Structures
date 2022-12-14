@@ -9,9 +9,9 @@ int wcount(char *s)
         return 0;
     if(length == 2 && s[0] != ' ')
         return 1;
-    for(int i = 1; i <= length; i++)
+    for(int i = 0; i <= length - 1; i++)
     {
-        if(((s[i-1] == ' ') || i == 1 ) && ((s[i] != ' ') &&(s[i] != '\n')))
+        if(s[i] != '\0' && s[i] != '\n' && s[i] != ' ' && ((i != 0 && s[i-1] == ' ') || (i == 0)))
             counter += 1;
     }
     return counter;

@@ -9,12 +9,11 @@ void revarray(void *base, size_t nel, size_t width)
 {
     char *tmp = NULL;
     tmp = malloc(width);
-    size_t n = 0;
     for (size_t n = 0; n < nel / 2; n++)
     {
-        memcpy(tmp, base + n*width, width);
-        memcpy(base + n*width, base + (nel - 1 - n)*width, width);
-        memcpy(base + (nel - 1 - n)*width, tmp, width);
+        memcpy(tmp, (char*)base + n*width, width);
+        memcpy((char*)base + n*width, (char*)base + (nel - 1 - n)*width, width);
+        memcpy((char*)base + (nel - 1 - n)*width, tmp, width);
     }
     free(tmp);
 }
