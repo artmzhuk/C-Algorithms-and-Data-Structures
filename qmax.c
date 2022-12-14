@@ -36,8 +36,8 @@ int main(){
 
     struct dStack* Queue = malloc(sizeof(struct dStack));
     struct dStack* Deque = malloc(sizeof(struct dStack));
-    long* dataQ = malloc(NOps * sizeof(long));
-    long* dataD = malloc( NOps * sizeof(long));
+    long* dataQ = calloc(NOps, sizeof(long));
+    long* dataD = calloc( NOps, sizeof(long));
     if(!(dataQ && dataD && Queue && Deque)) // checking mallocs
         return -1;
 
@@ -157,7 +157,7 @@ void Enqueue(struct dStack *Q, struct dStack *D, long x) {
     }
     else{
         push1(Q, x);
-        while(getRearElementDeq(D) < x && queueEmpty(D) == 0){
+        while((getRearElementDeq(D) < x) && (queueEmpty(D) == 0)){
             if(stackEmpty2(D) == 0){
                 pop2(D);
             } else{

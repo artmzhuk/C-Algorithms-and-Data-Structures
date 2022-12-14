@@ -1,60 +1,37 @@
 #include <stdio.h>
-#include <math.h>
 #include <stdlib.h>
 
-int main(int argc, char **argv)
+int main()
 {
-    long long n;
-    // printf("input: ");
+    long long n, j;
     scanf("%lld", &n);
     n = llabs(n);
-    char *a = malloc(n);
-
-    for (long long i = 0; i <= n; i++)
-    {
-        a[i] = 1;
-    }
-
-    // printf ("test1\n");
-    for (long long i = 2; i * i <= n; i++)
-    {
-        if (a[i] == 1)
-        {
-            for (long long j = i * i; j <= n; j += i)
-            {
-                a[j] = 0;
-            }
-        }
-    }
-    // printf ("test2\n");
-
-    for (long long i = n; i >= 2; i--)
-    {
-        if (a[i] == 1)
-        {
-            if (n % i == 0)
-            {
-                printf("%lld ", i);
-                free(a);
-                return 0;
+    char *sieve = calloc(n + 1, 1);
+    long long primes[4800] = {0};
+    int index = 0;
+    for (long long i = 2; i * i <= n; i++) {
+        if (sieve[i] == 0) {
+            primes[index] = i;
+            index++;
+            j = i * i;
+            while (j <= n) {
+                sieve[j] = 1;
+                if (i == 2)
+                    j += i;
+                else
+                    j = j + (2 * i);
             }
         }
     }
 
-    /*for (long long i = 2; i <= n; i++)
-    {
-        if (a[i] == 1)
-        {
-            printf("%lld ", i);
+    for(int i = index - 1; i >= 0; i--){
+        if(n % primes[i] == 0){
+            printf("%lld", primes[i]);
+            free(sieve);
+            return 0;
         }
-
-    }*/
-    // рабочий вариант вывода простых чисел
-    // printf ("\ntest3\n");
-    /*for (long long j = 0; j <= n; j++) // вывод массива для отладки
-    {
-        printf("%lld ", a[j]);
-    }*/
-
+    }
+    printf("%lld", n);
+    free(sieve);
     return 0;
 }

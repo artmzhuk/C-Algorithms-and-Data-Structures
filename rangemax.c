@@ -2,14 +2,14 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
+#include <stdbool.h>
 #define MAX(a,b) ((a) > (b) ? (a) : (b))
 
 void build(long v, long a, long b, long* tree, long* source);
 long query(long v, long a, long b, long l, long r, long* tree);
 void update(long v, long a, long b, long i, long value, long* tree);
 void scanElements(long nel, long* array);
-void scanOps(int m, char* operations);
-void performOps(long* source, long nel, int m, char* ops);
+void performOps(long *source, long nel, long* tree);
 
 int main(){
     long nel;
@@ -18,14 +18,17 @@ int main(){
     long source[nel];
     scanElements(nel, source);
 
-    int m;
-    scanf("%d", &m);
-    char* operations = calloc(m, 30);
-    scanOps(m, operations);
+    /*int m;
+    scanf("%d", &m);*/
 
-    performOps(source, nel, m, operations);
+    long treemaxsize = (long)pow(2, floor(log2((double)nel))+ 2);
+    long *tree = malloc(treemaxsize * sizeof(long));
+    if(tree == NULL)
+        exit(-1);
 
-    free(operations);
+    performOps(source, nel,  tree);
+
+    free(tree);
     return 0;
 }
 
@@ -48,8 +51,14 @@ long query(long v, long a, long b, long l, long r, long *tree) { // 1, 0, nel - 
     }
     else{
         long m = (a + b) / 2;
-        return MAX(query(v * 2, a, m, l, r,tree),
+        if(r <= m)
+            return query(v * 2, a, m, l, r, tree);
+        else if (l > m)
+            return query(v * 2 + 1, m + 1, b, l, r, tree);
+        else
+            return MAX(query(v * 2, a, m, l, r,tree),
                    query(v * 2 + 1, m + 1, b, l, r, tree));
+        // спасибо за подсказку!
     }
 }
 
@@ -70,33 +79,21 @@ void update(long v, long a, long b, long i, long value, long *tree) {//1, 0, nel
 
 void scanElements(long nel, long *array) {
     for (long i = 0; i < nel; i++){
-        scanf("%lu", &array[i]);
+        scanf("%li", &array[i]);
     }
 }
 
-void scanOps(int m, char *operations) {
-    char* buf = malloc(3);
-    fgets(buf, 3, stdin); //removes /r and /n left from scanf
-    free(buf);
-    for(int i = 0; i < m; i++){
-        fgets(operations + i * 30, 30, stdin);
-    }
-}
-
-void performOps(long *source, long nel, int m, char *ops) {
-    int treemaxsize = (int)pow(2, ceil(log2((double)nel)) + 1);
-    long tree[treemaxsize];
+void performOps(long *source, long nel, long *tree) {
+    char operation[3];//current operation
+    long param1, param2;
     build(1, 0, nel - 1, tree, source);
-    for(int i = 0; i < m; i++){
-        char operation[30];// current operation
-        strcpy(operation, ops + i * 30);
-        char* end;
-        char* end2;
-        long param1 = strtol(operation + 3, &end, 10);
-        long param2 = strtol(end, &end2, 10);
+    while(true){
+        scanf("%s %li %li", operation, &param1, &param2);
         if(operation[0] == 'M')
             printf("%li\n", query(1, 0, nel - 1, param1, param2, tree));
-        if(operation[0] == 'U')
+        else if(operation[0] == 'U')
             update(1, 0, nel - 1, param1, param2, tree);
+        else if(operation[0] == 'E')
+            return;
     }
 }
