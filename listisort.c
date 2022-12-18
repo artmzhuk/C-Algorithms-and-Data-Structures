@@ -91,12 +91,19 @@ void insertsort(struct List *list) {
             while (K != list->head && K->prev->v > N->v)
                 K = K->prev;
             insertAfter(K->prev, N);
-            if (N->prev == list->tail)
+            if (N->prev == list->tail) {
                 list->head = N;
+                continue;
+            }
+            if (N == list->tail) {
+                list->head = N;
+                break;
+            }
         }
     }
-    list->tail = S;
     list->head = S->next;
+    list->tail = S;
+
 }
 
 void printList(struct List list, long nel) {
