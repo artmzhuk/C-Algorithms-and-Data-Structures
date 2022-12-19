@@ -31,7 +31,7 @@ int main() {
     return 0;
 }
 
-void scanElem(struct Elem *elements, long nel) {
+void scanElem(struct Elem *elements, long nel) { //scans elements to the list
     int value;
     scanf("%d", &value);
     if (nel >= 2) {
@@ -70,14 +70,14 @@ void insertAfter(struct Elem *x, struct Elem *y) { // removes y from it's positi
     z->prev = y;
 }
 
-struct List initListInfo(struct Elem *elements, long nel) {
+struct List initListInfo(struct Elem *elements, long nel) { //initializes info about list (ptr to tail & head)
     struct List info;
     info.head = &elements[0];
     info.tail = &elements[nel - 1];
     return info;
 }
 
-void insertsort(struct List *list) {
+void insertsort(struct List *list) { // performs insertion sort on list
     struct Elem *S = list->head;
     struct Elem *N;
     struct Elem *K;
@@ -106,7 +106,7 @@ void insertsort(struct List *list) {
 
 }
 
-void printList(struct List list, long nel) {
+void printList(struct List list, long nel) { //prints list (based of its head and nel)
     struct Elem *current = list.head;
     for (long i = 0; i < nel; i++) {
         printf("%d ", current->v);
