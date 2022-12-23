@@ -25,3 +25,4 @@ bubblesort
 mulmod_without_binary.c
 /CMakeLists.txt
 /primedivBin.c
+/test2.c
