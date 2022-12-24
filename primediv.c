@@ -1,37 +1,46 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main()
-{
-    long long n, j;
-    scanf("%lld", &n);
-    n = llabs(n);
-    char *sieve = calloc(n + 1, 1);
-    long long primes[4800] = {0};
-    int index = 0;
-    for (long long i = 2; i * i <= n; i++) {
-        if (sieve[i] == 0) {
-            primes[index] = i;
-            index++;
-            j = i * i;
-            while (j <= n) {
-                sieve[j] = 1;
-                if (i == 2)
-                    j += i;
-                else
-                    j = j + (2 * i);
-            }
+long maxPrime(long xIn){
+    long max;
+    long x = labs(xIn);
+    max = 1;
+
+    while(x % 2 == 0){
+        max = 2;
+        x /= 2;
+    }
+    while(x % 3 == 0){
+        max = 3;
+        x /= 3;
+    }
+
+    for(long i = 5; i * i <= x; i += 6){
+        /*we need to check only i and i + 2
+         because i + 1, i + 3, i + 5 are even
+         i + 4 is always divisible by 3 */
+        while(x % i == 0){
+            max = i;
+            x /= i;
+        }
+        while(x % (i + 2) == 0){
+            max = i + 2;
+            x /= (i + 2);
         }
     }
 
-    for(int i = index - 1; i >= 0; i--){
-        if(n % primes[i] == 0){
-            printf("%lld", primes[i]);
-            free(sieve);
-            return 0;
-        }
-    }
-    printf("%lld", n);
-    free(sieve);
+    if(x > 4) // case when x itself is a prime number
+        max = x;
+
+    return max;
+}
+
+int main()
+{
+    long x;
+    scanf("%li", &x);
+    long max = maxPrime(x);
+    printf("%li", max);
+
     return 0;
 }
