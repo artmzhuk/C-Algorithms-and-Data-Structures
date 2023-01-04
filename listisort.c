@@ -44,6 +44,7 @@ void scanElem(struct Elem *elements, long nel) { //scans elements to the list
         elements[0].v = value;
         elements[0].next = &elements[0];
         elements[0].prev = &elements[0];
+        return;
     }
     for (long i = 1; i < nel - 1; i++) {
         scanf("%d", &value);
