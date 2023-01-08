@@ -16,15 +16,14 @@ long getNOps();
 void fENQ(char *secondWord, struct Queue *q);
 void fDEQ(struct Queue *q);
 void fEMPTY(struct Queue *q);
-void performOps(struct Queue *q, long n);
+void performOps(struct Queue *q);
 
 int main() {
     struct Queue *q = malloc(sizeof(struct Queue));
     long *buffer = malloc(4 * sizeof(long));
     initQueue(q, buffer, 4);
 
-    long nOps = getNOps();
-    performOps(q, nOps);
+    performOps(q);
 
     free(q->data);
     free(q);
@@ -76,15 +75,6 @@ long dequeue(struct Queue *q) {
     return x;
 }
 
-long getNOps() {
-    char *end;
-    char *nOps = malloc(10);
-    fgets(nOps, 10, stdin);
-    long x = strtol(nOps, &end, 10);
-    free(nOps);
-    return x;
-}
-
 void fENQ(char *secondWord, struct Queue *q) {
     char *end;
     long x = strtol(secondWord, &end, 10);
@@ -104,11 +94,11 @@ void fEMPTY(struct Queue *q) {
         printf("false ");
 }
 
-void performOps(struct Queue *q, long n) {
+void performOps(struct Queue *q) {
     char *currentOp = malloc(20);
     char *firstWord;
     char *secondWord;
-    for (int i = 0; i < n; i++) {
+    while (1) {
         fgets(currentOp, 20, stdin);
         firstWord = strtok(currentOp, " \r\n");
         secondWord = strtok(NULL, " \r\n");
@@ -118,6 +108,8 @@ void performOps(struct Queue *q, long n) {
             fDEQ(q);
         else if (strcmp(firstWord, "EMPTY") == 0)
             fEMPTY(q);
+        else if (strcmp(firstWord, "END") == 0)
+            break;
         else
             printf("invalid operation");
     }
