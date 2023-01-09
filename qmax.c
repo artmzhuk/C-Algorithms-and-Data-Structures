@@ -8,7 +8,7 @@ struct dStack{
 };
 /*queue functions (based on double stack)
 vvvvvvvvvvvvvvvvvvvvvvv*/
-void initStack(struct dStack* s,long nel , long* data);
+void initStack(struct dStack *s, long nel, long *data);
 int stackEmpty1(struct dStack* s);
 int stackEmpty2(struct dStack* s);
 void push1(struct dStack* s, long x);
@@ -28,22 +28,21 @@ long Dequeue(struct dStack* Q, struct dStack* D);
 long Maximum(struct dStack* D);
 /*string functions
 vvvvvvvvvvvvvvvvvvvvvvvv*/
-long getNOps();
-void performOps(struct dStack* Q, struct dStack* D, long n);
+void performOps(struct dStack *Q, struct dStack *D);
 
 int main(){
-    long NOps = getNOps();
+    long n = 100000;
 
     struct dStack* Queue = malloc(sizeof(struct dStack));
     struct dStack* Deque = malloc(sizeof(struct dStack));
-    long* dataQ = calloc(NOps, sizeof(long));
-    long* dataD = calloc( NOps, sizeof(long));
+    long* dataQ = calloc(n, sizeof(long));
+    long* dataD = calloc(n, sizeof(long));
     if(!(dataQ && dataD && Queue && Deque)) // checking mallocs
-        return -1;
+        return 1;
 
-    initStack(Queue, NOps, dataQ);
-    initStack(Deque, NOps, dataD);
-    performOps(Queue, Deque, NOps);
+    initStack(Queue, n, dataQ);
+    initStack(Deque, n,dataD);
+    performOps(Queue, Deque);
 
     free(dataD);
     free(dataQ);
@@ -186,20 +185,11 @@ long Maximum(struct dStack *D) {
     return getFirstElementDeq(D);
 }
 
-long getNOps() {
-    char* end;
-    char* nOps = malloc(10);
-    fgets(nOps, 10, stdin);
-    long x = strtol(nOps, &end, 10);
-    free(nOps);
-    return x;
-}
-
-void performOps(struct dStack *Q, struct dStack *D, long n) {
+void performOps(struct dStack *Q, struct dStack *D) {
     char *currentOp = malloc(20);
     char *firstWord;
     char *secondWord;
-    for (long i = 0; i < n; i++) {
+    while(1) {
         fgets(currentOp, 20, stdin);
         firstWord = strtok(currentOp, " \r\n");
         secondWord = strtok(NULL, " \r\n");
@@ -219,6 +209,9 @@ void performOps(struct dStack *Q, struct dStack *D, long n) {
                 printf("true\n");
             else
                 printf("false\n");
+        }
+        else if (strcmp(firstWord, "END") == 0){
+            break;
         }
         else
             printf("invalid operation");
