@@ -31,7 +31,7 @@ int main(){
     long **arrays = malloc(sizeof(long*) * k);
     scanArrays(arrays, lengths, k);
 
-    long result[n];
+    long* result = calloc(n, sizeof(long));
 
     merge(k, n, arrays, lengths, result);
 
@@ -43,6 +43,7 @@ int main(){
         free(arrays[i]);
 
     free(arrays);
+    free(result);
     return 0;
 }
 
