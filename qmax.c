@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define STACK_SIZE 1000000;
+
 struct dStack{
     long* data;
     long cap, top1, top2;
@@ -31,7 +33,7 @@ vvvvvvvvvvvvvvvvvvvvvvvv*/
 void performOps(struct dStack *Q, struct dStack *D);
 
 int main(){
-    long n = 100000;
+    long n = STACK_SIZE;
 
     struct dStack* Queue = malloc(sizeof(struct dStack));
     struct dStack* Deque = malloc(sizeof(struct dStack));
